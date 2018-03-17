@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Sample Arrays</title>
+	<meta charset="utf-8" />
+    <style>
+        html, body {
+            margin:0;
+            height:100%;
+			background-color: #ECEBE4;
+        }
+        h1 {
+            margin:0;
+            padding:10px 10px 20px 0;
+            font-family:Verdana;
+			color: #595758;
+        }
+        .box {
+            background-color: #fff;
+            padding:10px 20px 10px 20px;
+            margin:40px;
+        }        
+        .textbox {
+            padding:2px 2px 2px 3px;  
+            background-color: #FFE3B0;          
+            color:#313638;
+            font-family:verdana;
+            font-size:small;
+            font-weight:bold;
+            word-wrap:break-word;
+        }
+		.btn {
+			background: #A9ECA2;			
+			-webkit-border-radius: 8;
+			-moz-border-radius: 8;
+            margin-right: 5px;            
+            border: 2px solid #A9ECA2;
+			border-radius: 5px;
+			font-family: Arial;			
+			font-size: 16px;
+			padding: 5px 10px 5px 10px;
+			text-decoration: none;
+		}
+		.btn:hover {
+			background: #9AD794;	
+            border: 2px solid #9AD794;	            
+			text-decoration: none;
+		}
+		.btnClean {
+			background: #ECEBE4;			
+			-webkit-border-radius: 8;
+			-moz-border-radius: 8;
+            margin-right: 5px;
+            border: 2px solid #ECEBE4;
+			border-radius: 5px;
+			font-family: Arial;			
+			font-size: 16px;
+			padding: 5px 10px 5px 10px;
+			text-decoration: none;
+		}
+		.btnClean:hover {
+			background: #ECEBE4;			
+			text-decoration: none;
+		}		
+        footer #container {            
+            width:100%;            
+            position: relative;
+            bottom: 0;               
+            margin: 0;            
+            background-color:#333;
+            font-family:Verdana;
+            color:#fff;            
+        }
+        #container p {
+            text-align:center;            
+        }
+		.add-number {            
+			display: block;
+			float: left;
+		}
+        #form-addnumero {
+            display: block; 
+            float: right;             
+        }
+        #form-addnumero input {                        
+            width: 260px;
+            height: 19px;
+            margin-left: 40px;
+            margin-right: 5px;
+            -webkit-border-radius: 8;
+			-moz-border-radius: 8;
+            background-color: #fff;
+			border-radius: 5px;                                    
+            border: 2px solid #ECEBE4;    
+			font-family: Arial;			
+			font-size: 14px;
+			padding: 5px 10px 5px 10px;
+			text-decoration: none;
+        }        
+        .msg-off {
+            display: none;
+        }
+        .msg-on {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>  
+     
+    <header>
+        <div id="container-header"></div>
+    </header>
+    <section> 
+        <div class="box">
+            <h1>Gerar um Array de Números Aleatórios</h1>
+			<div class="add-number">			
+				<button class="btn" id="btn-gerarnumeros">Iniciar</button>            
+                <button class="btnClean" id="btn-limparnumeros">Limpar</button>
+                <form id="form-addnumero">                
+					<input id="numero" type="number" name="numero" placeholder="Insira um número de sua escolha...">               
+					<button class="btn" id="btnAddnumero">+</button>
+				</form>
+			</div>			
+			<br>
+			<br>		            			
+            <p id="msg-label" class="msg-off">gerando array...</p>
+            <p id="numeros-aleatorios" class="textbox">...</p>
+        </div>       
+    </section>
+             
+    <section> 
+        <div class="box">
+            <h1>Separar os Números em Pares e Impares</h1>
+            <button class="btn" id="btn-separarnumeros" disabled>Separar números</button>
+            <p id="numeros-pares" class="textbox">...</p>
+            <p id="numeros-impares" class="textbox">...</p>
+        </div>  
+    </section>
+    
+    <section> 
+        <div class="box">
+            <h1>Contar e Somar os Números Pares e Impares</h1>
+            <button class="btn" id="btn-soma" disabled>Somar números</button>
+            <p id="total-pares" class="textbox">...</p>
+            <p id="total-impares" class="textbox">...</p>
+        </div>  
+    </section>
+
+    <footer>
+        <div id="container"></div>
+    </footer>
+       
+    <script>
+
+        var arrayNumeros = [];
+        var arrayPar = [];
+        var arrayImpar = [];
+                
+        var msgLabel = document.getElementById('msg-label');        
+        var numerosAleatorios = document.getElementById('numeros-aleatorios');        
+        var botaoGerarNumeros = document.getElementById('btn-gerarnumeros').addEventListener('click', gerarNumeros);        
+        var botaoLimparNumeros = document.getElementById('btn-limparnumeros').addEventListener('click', limparNumeros);
+
+        function gerarNumeros() {
+
+            msgLabel.classList.add('msg-on');
+
+            setTimeout(function(){              
+
+                for (i = 0; i < 100; i++) {
+                    arrayNumeros[i] = Math.floor(Math.random() * 300);
+                }
+                numerosAleatorios.textContent = arrayNumeros;
+                document.getElementById("btn-separarnumeros").disabled = false;                
+    
+                msgLabel.classList.remove('msg-on');            
+            
+            }, 3000);
+
+        }
+
+        var botaoAdd = document.querySelector("#btnAddnumero");
+
+        botaoAdd.addEventListener('click', function (event) {
+
+            event.preventDefault();
+
+            var form = document.querySelector("#form-addnumero");
+            var a = parseInt(form.numero.value);                                    //Converte string para numero
+            arrayNumeros.push(a);                                                   //Insere no final do array
+            numerosAleatorios.textContent = arrayNumeros;
+            
+        });        
+                
+        function limparNumeros() {
+            arrayNumeros = [];
+            arrayPar = [];
+            arrayImpar = [];
+            numerosAleatorios.textContent = '...';
+            numerosPares.textContent = '...';
+            numerosImpares.textContent = '...';
+            numerosAleatorios.textContent = '...';
+            totalNumerosPares.textContent = '...';
+            totalNumerosImpares.textContent = '...';
+            document.getElementById("btn-separarnumeros").disabled = true;
+            document.getElementById("btn-soma").disabled = true;
+        }
+
+        //Section Separa Numeros
+        var numerosPares = document.getElementById('numeros-pares');
+        var numerosImpares = document.getElementById('numeros-impares');
+        var botaoSepararNumeros = document.getElementById('btn-separarnumeros').addEventListener('click', separarNumeros);
+
+        function separarNumeros() {
+            var contPar = 0;
+            var contImpar = 0;
+            var arrayNumerosLen = arrayNumeros.length;
+
+            if (arrayNumerosLen == 0) {
+                alert('Não existem números para serem processados! Clique no botão Gerar Numeros');
+            } else {
+                for (i = 0; i < arrayNumerosLen; i++) {
+                    if (arrayNumeros[i] % 2 == 0) {
+                        arrayPar[contPar] = arrayNumeros[i];
+                        contPar++;
+                    } else {
+                        arrayImpar[contImpar] = arrayNumeros[i];
+                        contImpar++;
+                    }
+                }
+                numerosPares.textContent = 'Pares: ' + arrayPar;
+                numerosImpares.textContent = 'Impares: ' + arrayImpar;
+                document.getElementById("btn-soma").disabled = false;
+            }
+        }
+
+        //Section Soma Numeros
+        var totalNumerosPares = document.getElementById('total-pares');
+        var totalNumerosImpares = document.getElementById('total-impares');
+        var botaoSomaNumeros = document.getElementById('btn-soma').addEventListener('click', somaNumeros);
+
+        function somaNumeros() {
+            var totalPares = 0;
+            var totalImpares = 0;
+            var arrayParLen = arrayPar.length;
+            var arrayImparLen = arrayImpar.length;
+            var arrayNumerosLen = arrayNumeros.length;
+
+            if (arrayNumerosLen == 0 || arrayParLen == 0) {
+                alert('Não existem números para serem processados! Clique no botão Gerar Numeros');
+            } else {
+                for (i = 0; i < arrayParLen; i++) {
+                    totalPares = totalPares + arrayPar[i];
+                }
+                for (i = 0; i < arrayImparLen; i++) {
+                    totalImpares = totalImpares + arrayImpar[i];
+                }
+                totalNumerosPares.textContent = 'Quantidade de números Pares: ' + arrayParLen + ' | Soma dos números Pares: ' + totalPares;
+                totalNumerosImpares.textContent = 'Quantidade de números Impares: ' + arrayImparLen + ' | Soma dos números Impares: ' + totalImpares;
+            }
+        }        
+        
+        //Insere o ano no footer
+        var today = new Date();
+        var year = today.getFullYear();
+        var el = document.querySelector('#container');
+        el.innerHTML = '<p>Copyright &copy;' + year + '  lweb' + '</p>';    
+    </script>
+</body>
+</html>
